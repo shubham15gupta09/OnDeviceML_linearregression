@@ -12,6 +12,6 @@ Tensorflow JS<br>
 
 ## Ui
 <div>
-  <img src="./images/1.png" alt="image"/>
-  <img src="./images/2.png" alt="image"/>
+  <img src="./images/1.jpg" alt="image"/>
+  <img src="./images/2.jpg" alt="image"/>
 </div>
