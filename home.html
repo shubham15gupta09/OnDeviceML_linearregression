@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<head>
+    <title>On device ML</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+</head>
+
+<body style="margin: 10px;padding: 10px;font-size: large;">
+    <h1> Linear Regression on the Go </h1>
+    <label>Follw the instruction carefully !!!</label><br>
+    <label>Give the Data for Training</label><br>
+    <label><b>Note : </b>Write your data using comma seperation for below fields eg 1,2,3,4,5 </label><br><br>
+    <label> Input x_Test </label>
+    <input type="text" id="xs" name="xs" />
+    <br><br>
+    <label> Input y_Test </label>
+    <input type="text" id="ys" name="xs" />
+    <br><br>
+    <label><b>Note : </b>Single integer is required for below fields eg 10 </label><br><br>
+    <label> Input X for prediction </label>
+    <input type="text" id="prediction" name="xs" />
+    <br><br>
+    <label> Input No. of epochs (Should be greater then > 100 ) </label>
+    <input type="text" id="epochs" name="xs" />
+    <br><br>
+    <button onclick="convert()">Submit the Data</button>
+    <input type="button" value="Reset" onclick="history.go(0)" />
+    <br>
+    <p id="datasubmited"></p>
+    <b>
+        <p id="ans"></p>
+    </b>
+</body>
+<script>
+    model_make = (a, b) => {
+        const p = [];
+        p.push(parseInt(document.getElementById("prediction").value));
+        const xs = tf.tensor2d(a, [a.length, 1]);
+        const ys = tf.tensor2d(b, [b.length, 1]);
+        const pred = tf.tensor2d(p, [1, 1]);
+        console.log(xs, ys, pred)
+        const model = tf.sequential();
+        model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
+        model.compile({
+            loss: 'meanSquaredError',
+            optimizer: 'sgd'
+        });
+        model.summary();
+        doTraining(model, xs, ys, pred).then(() => {
+            var ans = model.predict(pred);
+            document.getElementById("ans").innerHTML = "Answer : " + ans;
+        });
+    }
+    async function doTraining(model, xs, ys) {
+        var op = document.getElementById("epochsnadlogs");
+        const history =
+            await model.fit(xs, ys,
+                {
+                    epochs: parseInt(document.getElementById("epochs").value),
+                    callbacks: {
+                        onEpochEnd: async (epoch, logs) => {
+                            console.log("Epoch : " + epoch + " , Loss: " + logs.loss);
+                        }
+                    }
+                });
+    }
+    convert = () => {
+        var xs = document.getElementById("xs").value.split(",");
+        var ys = document.getElementById("ys").value.split(",");
+        xs = xs.map(x => {
+            return parseFloat(x)
+        })
+        ys = ys.map(y => {
+            return parseFloat(y)
+        })
+        if (xs.length != ys.length) {
+            alert("Check your Input values Again");
+        } else {
+            document.getElementById("datasubmited").innerHTML = "Data Submited Successfully"
+                + "<br>"
+                + "Model Training Started"
+                + "<br>";
+            document.getElementById("ans").innerHTML = `<div class="ui active inline loader"></div>`;
+            model_make(xs, ys);
+        }
+    }
+
+</script>
+
+</html>
