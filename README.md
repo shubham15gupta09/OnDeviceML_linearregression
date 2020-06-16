@@ -9,3 +9,9 @@ Everything is javascript <br>
 HTML , CSS , JS<br>
 Semantic UI CDN <br>
 Tensorflow JS<br>
+
+## Ui
+<div>
+  <img src="./images/1.png" alt="image"/>
+  <img src="./images/2.png" alt="image"/>
+</div>
