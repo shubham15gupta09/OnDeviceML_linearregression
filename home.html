@@ -2,38 +2,50 @@
 
 <head>
     <title>On device ML</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+
 </head>
 
 <body style="margin: 10px;padding: 10px;font-size: large;">
+
     <h1> Linear Regression on the Go </h1>
     <label>Follw the instruction carefully !!!</label><br>
     <label>Give the Data for Training</label><br>
-    <label><b>Note : </b>Write your data using comma seperation for below fields eg 1,2,3,4,5 </label><br><br>
+
+    <p><b>Note : </b>For following inputs , use comma seperation  eg 1,2,3,4,5 </p><br><br>
+
     <label> Input x_Test </label>
     <input type="text" id="xs" name="xs" />
     <br><br>
+
     <label> Input y_Test </label>
     <input type="text" id="ys" name="xs" />
     <br><br>
-    <label><b>Note : </b>Single integer is required for below fields eg 10 </label><br><br>
+
+    <p><b>Note : </b>Single integer is required for below fields eg 10 </p><br><br>
+
     <label> Input X for prediction </label>
     <input type="text" id="prediction" name="xs" />
     <br><br>
+
     <label> Input No. of epochs (Should be greater then > 100 ) </label>
     <input type="text" id="epochs" name="xs" />
     <br><br>
+
     <button onclick="convert()">Submit the Data</button>
     <input type="button" value="Reset" onclick="history.go(0)" />
     <br>
     <p id="datasubmited"></p>
-    <b>
-        <p id="ans"></p>
-    </b>
+    <b><p id="ans"></p> </b>
+
 </body>
+
 <script>
+    
     model_make = (a, b) => {
         const p = [];
         p.push(parseInt(document.getElementById("prediction").value));
